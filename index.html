@@ -25,11 +25,11 @@
       <div class="row">
         <div class="col">
           <h2 style="font-size:30px;">Task-Oriented Dexterous Grasp Synthesis via Differentiable Grasp Wrench Boundary Estimator</h2>
-          <h4 style="color:#6e6e6e;"> In Review </h4>
+          <h4 style="color:#6e6e6e;"> IROS 2024 </h4>
           <hr>
           <h6>
-            <a href="https://jychen18.github.io/">Jiayi Chen</a><sup>1,2*</sup>&nbsp; &nbsp;
-            Yuxing Chen<sup>1,3*</sup>&nbsp; &nbsp;
+            <a href="https://jychen18.github.io/">Jiayi Chen</a><sup>1,2</sup>&nbsp; &nbsp;
+            Yuxing Chen<sup>1,3</sup>&nbsp; &nbsp;
             Jialiang Zhang<sup>1,3</sup>&nbsp; &nbsp;
             <a href="https://hughw19.github.io/">He Wang</a><sup>1,2†</sup>
             <br>
@@ -39,7 +39,7 @@
               <sup>3</sup>Galbot&nbsp; &nbsp;
               <br>
             </p>
-            <p> <sup>*</sup> equal contributions &nbsp;
+            <p> 
               <sup>†</sup> corresponding author &nbsp;
               <br>
             </p>
@@ -94,18 +94,29 @@
         <h2><strong>Abstract</strong></h2>
         <hr style="margin-top:0px">
         <p class="text-justify">
-          Analytical dexterous grasping synthesis is often driven by grasp quality metrics. 
-          However, existing metrics possess many problems, such as being computationally expensive, physically inaccurate, and non-differentiable. 
-          Moreover, none of them can facilitate the synthesis of non-force-closure grasps, which account for a significant portion of task-oriented grasping such as lid screwing and button pushing. 
-          The main challenge behind all the above drawbacks is the difficulty in modeling the complex Grasp Wrench Space (GWS). 
-          In this work, we overcome this challenge by proposing a novel GWS estimator, thus enabling gradient-based task-oriented dexterous grasp synthesis for the first time. 
-          Our key contribution is a fast, accurate, and differentiable technique to estimate the GWS boundary with good physical interpretability by parallel sampling and mapping, which does not require iterative optimization. 
-          Second, based on our differentiable GWS estimator, we derive a task-oriented energy function to enable gradient-based grasp synthesis and a metric to evaluate non-force-closure grasps. 
-          Finally, we improve the previous dexterous grasp synthesis pipeline mainly by a novel technique to make nearest-point calculation differentiable, even on mesh edges and vertices. 
-          Extensive experiments are performed to verify the efficiency and effectiveness of our methods. 
-          Our GWS estimator can run in several milliseconds on GPUs with minimal memory cost, more than three orders of magnitude faster than the classic discretization-based method. 
-          Using this GWS estimator, we synthesize 0.1 million dexterous grasps to show that our pipeline can significantly outperform the SOTA method, even in task-unaware force-closure-grasp synthesis. 
-          For task-oriented grasp synthesis, we provide some qualitative results. 
+          This work tackles the problem of task-oriented dexterous hand pose synthesis, which involves generating a static hand pose capable of applying a task-specific set of
+wrenches to manipulate objects. Unlike previous approaches
+that focus solely on force-closure grasps, which are unsuitable
+for non-prehensile manipulation tasks (e.g., turning a knob or
+pressing a button), we introduce a unified framework covering
+force-closure grasps, non-force-closure grasps, and a variety
+of non-prehensile poses. Our key idea is a novel optimization
+objective quantifying the disparity between the Task Wrench
+Space (TWS, the desired wrenches predefined as a task prior)
+and the Grasp Wrench Space (GWS, the achievable wrenches
+computed from the current hand pose). By minimizing this
+objective, gradient-based optimization algorithms can synthesize task-oriented hand poses without additional human demonstrations. Our specific contributions include 1) a fast, accurate,
+and differentiable technique for estimating the GWS boundary;
+2) a task-oriented objective function based on the disparity
+between the estimated GWS boundary and the provided TWS
+boundary; and 3) an efficient implementation of the synthesis
+pipeline that leverages CUDA accelerations and supports largescale paralleling. Experimental results on 10 diverse tasks
+demonstrate a 72.6% success rate in simulation. Furthermore,
+real-world validation for 4 tasks confirms the effectiveness
+of synthesized poses for manipulation. Notably, despite being
+primarily tailored for task-oriented hand pose synthesis, our
+pipeline can generate force-closure grasps 50 times faster
+than DexGraspNet while maintaining comparable grasp quality.
         </p>
       </div>
     </div>
@@ -123,6 +134,43 @@
           <video width="90%" playsinline="" preload="" muted="" controls>
             <source src="videos/full_video.mp4" type="video/mp4">
           </video>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+<br>
+<br>
+
+
+<section>
+  <div class="container" style="width:58%; overflow-x: auto;">
+    <div class="row">
+      <div class="col-12">
+        <h2><strong>Real-World Experiments</strong></h2>
+        <hr style="margin-top:0px">
+        <div class="row justify-content-center" style="align-items:center; display:flex;">
+          <div style="text-align:center;width:48%;display:inline-block;">
+            <video width="100%" playsinline="" preload="" muted="" autoplay="autoplay" loop="True" controls>
+              <source src="videos/real_knob.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="text-align:center;width:48%;display:inline-block;">
+            <video width="100%" playsinline="" preload="" muted="" autoplay="autoplay" loop="True" controls>
+              <source src="videos/real_handle.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="text-align:center;width:48%;display:inline-block;">
+            <video width="100%" playsinline="" preload="" muted="" autoplay="autoplay" loop="True" controls>
+              <source src="videos/real_lid.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="text-align:center;width:48%;display:inline-block;">
+            <video width="100%" playsinline="" preload="" muted="" autoplay="autoplay" loop="True" controls>
+              <source src="videos/real_drawer.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
     </div>
@@ -280,7 +328,7 @@
       <h2><strong>Contact</strong></h2>
       <hr style="margin-top:0px">
       <p>If you have any questions, please feel free to contact <b>Jiayi Chen</b> at jiayichen@pku.edu.cn, 
-        <b>Yuxing Chen</b> at yuxing20c@stu.pku.edu.cn, and <b>He Wang</b> at hewang@pku.edu.cn.
+        and <b>He Wang</b> at hewang@pku.edu.cn.
       </p>
       </pre>
     </div>
